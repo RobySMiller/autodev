@@ -29,13 +29,22 @@
 ### In Progress
 - [ ] Awaiting human review and approval of generated plan
 
+### Decisions Made
+- **Project Focus:** Web applications using Next.js full-stack architecture
+- **Target Users:** Solo developers and small teams building MVPs
+- **Tech Stack:** Next.js 14 + TypeScript, PostgreSQL, Railway hosting
+- **Architecture Pattern:** Monolith for MVP, microservices later if needed
+- **Human Gates:** Planning approval, architecture approval, production approval
+- **MVP Timeline:** 52-68 hours estimated (1.5-2 weeks focused development)
+- **First Test Case:** Simple CRUD application to validate entire workflow
+
 ### Next Steps (After Human Approval)
 1. Set up GitHub authentication (SSH keys or alternative)
 2. Push all Phase 1 documentation to GitHub
-3. Create dev branch 
-4. Begin Phase 2: Detailed Architecture
-5. Generate system architecture diagrams
-6. Create API specifications and data models
+3. Begin Phase 2: Detailed Architecture
+4. Generate system architecture diagrams (Mermaid)
+5. Create API specifications (OpenAPI)
+6. Define data models and component breakdown
 
 ### Decisions Made
 - Project name: autonomous-workflow
