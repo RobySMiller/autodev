@@ -1,357 +1,367 @@
-# User Stories: Autonomous Software Development Workflow
+# User Stories: AutoDev - Autonomous Software Development Workflow
 
-## Epic 1: Project Planning & Requirements
+## Epic 1: Project Initiation & Planning
 
 ### Story 1.1: Submit Project Idea
-**As a** developer
-**I want to** submit a project idea via chat interface
-**So that** the system can begin the autonomous development process
+**As a** developer  
+**I want to** submit a project idea through a chat interface  
+**So that** I can start the autonomous development process with minimal setup
 
 **Priority:** P0
 
 **Acceptance Criteria:**
-- [ ] Can send natural language project description via Slack/chat
-- [ ] System acknowledges receipt and begins processing
-- [ ] Input validation prevents empty or extremely short descriptions
-- [ ] System can handle various project types (web apps, APIs, tools)
+- [ ] Can send project description via Slack/chat interface
+- [ ] System acknowledges receipt and starts Phase 1
+- [ ] Project gets assigned unique identifier
+- [ ] Progress tracking begins immediately
 
 **Technical Notes:**
-- Integrate with Clawbot's existing chat interface
-- Store original problem statement for reference
+- Integrate with Clawbot message handling
+- Natural language processing for project descriptions
 
 **Dependencies:**
 - None (entry point)
 
 ---
 
-### Story 1.2: Generate Product Requirements Document
-**As a** developer
-**I want to** have a structured PRD automatically created from my idea
-**So that** I can review and approve the project scope before development begins
+### Story 1.2: Review Generated PRD
+**As a** developer  
+**I want to** review and approve the generated Product Requirements Document  
+**So that** I can ensure the AI understood my requirements correctly
 
 **Priority:** P0
 
 **Acceptance Criteria:**
-- [ ] PRD includes problem statement, solution, features, and metrics
-- [ ] Features are prioritized using MoSCoW method
-- [ ] Success criteria are measurable and specific
-- [ ] Assumptions and constraints are clearly listed
-- [ ] Generated within 5 minutes of idea submission
+- [ ] PRD is automatically generated from project description
+- [ ] PRD includes problem statement, features, success metrics, risks
+- [ ] Can approve, reject, or request modifications
+- [ ] Approval triggers progression to next phase
 
 **Technical Notes:**
-- Use Claude to analyze problem statement and generate structured PRD
-- Template-based generation for consistency
+- PRD template following standard format
+- Slack approval workflow with buttons
 
 **Dependencies:**
-- Story 1.1 (Submit Project Idea)
+- Story 1.1 (project submission)
 
 ---
 
-### Story 1.3: Create User Stories
-**As a** developer
-**I want to** have user stories generated from the PRD
-**So that** I have a clear breakdown of features to implement
+### Story 1.3: Review User Stories & Prioritization
+**As a** developer  
+**I want to** review generated user stories and their prioritization  
+**So that** I can ensure development will focus on the right features
 
 **Priority:** P0
 
 **Acceptance Criteria:**
-- [ ] All P0 features from PRD have corresponding user stories
-- [ ] Stories follow standard "As a... I want... So that..." format
-- [ ] Each story has specific acceptance criteria
+- [ ] Stories are generated from approved PRD
+- [ ] Stories include acceptance criteria and priorities (P0/P1/P2)
 - [ ] Dependencies between stories are identified
-- [ ] Stories are grouped into logical epics
+- [ ] Can modify priorities or add/remove stories
 
 **Technical Notes:**
-- Extract features from PRD and convert to story format
-- Maintain traceability back to PRD features
+- MoSCoW prioritization framework
+- Story dependency graph validation
 
 **Dependencies:**
-- Story 1.2 (Generate PRD)
+- Story 1.2 (PRD approval)
 
 ---
 
-### Story 1.4: Recommend Technology Stack
-**As a** developer
-**I want to** receive justified technology recommendations
-**So that** I can approve appropriate tools for my project
+### Story 1.4: Review Tech Stack Decision
+**As a** developer  
+**I want to** review and approve the recommended technology stack  
+**So that** I can ensure the chosen technologies fit my preferences and constraints
 
 **Priority:** P0
 
 **Acceptance Criteria:**
-- [ ] Recommends frontend, backend, database, and hosting technologies
-- [ ] Includes justification for each choice
-- [ ] Considers project requirements and complexity
-- [ ] Lists alternatives that were considered
-- [ ] Favors technologies already in use (Railway, Next.js)
+- [ ] Tech stack recommendation with justifications
+- [ ] Alternatives considered and explained
+- [ ] Compatibility with existing infrastructure verified
+- [ ] Template or starter project identified if available
 
 **Technical Notes:**
-- Decision matrix based on project requirements
-- Default to proven stack for simple projects
+- Bias toward Next.js, Railway, and proven technologies
+- Consider existing templates and boilerplates
 
 **Dependencies:**
-- Story 1.3 (Create User Stories)
+- Story 1.3 (user stories review)
 
 ---
 
-## Epic 2: Human Review & Approval
+## Epic 2: Architecture & Design
 
-### Story 2.1: Review Generated Plan
-**As a** developer
-**I want to** review the complete project plan before development
-**So that** I can ensure the system understood my requirements correctly
-
-**Priority:** P0
-
-**Acceptance Criteria:**
-- [ ] Plan summary clearly explains what will be built
-- [ ] Scope is appropriate for MVP
-- [ ] Timeline estimate seems reasonable
-- [ ] Can access all generated documents (PRD, stories, tech stack)
-- [ ] Open questions are clearly highlighted
-
-**Technical Notes:**
-- Generate plan summary linking to all documents
-- Present via Slack with clear formatting
-
-**Dependencies:**
-- Story 1.4 (Recommend Technology Stack)
-
----
-
-### Story 2.2: Approve or Reject Plan
-**As a** developer
-**I want to** easily approve or reject the generated plan
-**So that** I can control whether development proceeds
-
-**Priority:** P0
-
-**Acceptance Criteria:**
-- [ ] Simple approve/reject buttons in chat interface
-- [ ] Can provide rejection reason for system learning
-- [ ] Approval triggers next phase automatically
-- [ ] Rejection allows for plan revision
-- [ ] Decision is logged for audit trail
-
-**Technical Notes:**
-- Slack button integration
-- State management for approval workflow
-
-**Dependencies:**
-- Story 2.1 (Review Generated Plan)
-
----
-
-## Epic 3: Project Initialization
-
-### Story 3.1: Create Project Repository
-**As a** developer
-**I want to** have a properly structured GitHub repository created
-**So that** I have a professional project foundation
-
-**Priority:** P0
-
-**Acceptance Criteria:**
-- [ ] GitHub repository is created with appropriate name
-- [ ] Basic directory structure (src/, docs/, tests/) exists
-- [ ] .gitignore file configured for chosen tech stack
-- [ ] README.md with project overview
-- [ ] Initial commit includes all setup files
-
-**Technical Notes:**
-- Use GitHub CLI for repository creation
-- Template-based directory structure
-
-**Dependencies:**
-- Story 2.2 (Approve or Reject Plan)
-
----
-
-### Story 3.2: Setup Development Environment
-**As a** developer
-**I want to** have the development environment configured
-**So that** the system can begin autonomous development
-
-**Priority:** P0
-
-**Acceptance Criteria:**
-- [ ] Package.json/requirements.txt with dependencies
-- [ ] Development server configuration
-- [ ] Environment variables template
-- [ ] Git hooks for code quality
-- [ ] CI/CD pipeline basic setup
-
-**Technical Notes:**
-- Based on selected tech stack
-- Railway deployment configuration
-
-**Dependencies:**
-- Story 3.1 (Create Project Repository)
-
----
-
-## Epic 4: Architecture & Design
-
-### Story 4.1: Generate System Architecture
-**As a** developer
-**I want to** receive detailed system architecture documentation
-**So that** I understand how the system will be built
+### Story 2.1: Generate System Architecture
+**As a** developer  
+**I want to** receive a detailed system architecture design  
+**So that** I have a blueprint for the implementation phase
 
 **Priority:** P1
 
 **Acceptance Criteria:**
-- [ ] Architecture diagram shows component relationships
-- [ ] API contracts are defined
-- [ ] Data models are specified
+- [ ] Architecture diagram (Mermaid format)
 - [ ] Component breakdown with responsibilities
-- [ ] Deployment architecture included
+- [ ] API contracts and data models defined
+- [ ] Database schema if applicable
 
 **Technical Notes:**
-- Mermaid diagrams for architecture visualization
-- OpenAPI specs for API documentation
+- Use Mermaid.js for diagrams
+- Focus on web application patterns
 
 **Dependencies:**
-- Story 3.2 (Setup Development Environment)
+- Story 1.4 (tech stack approval)
 
 ---
 
-## Epic 5: Autonomous Development
-
-### Story 5.1: Generate Application Code
-**As a** developer
-**I want to** have the core application code generated automatically
-**So that** I have a working MVP without manual coding
+### Story 2.2: Create Implementation Task List
+**As a** developer  
+**I want to** see a detailed breakdown of implementation tasks  
+**So that** I can understand what will be built and track progress
 
 **Priority:** P1
 
 **Acceptance Criteria:**
-- [ ] Core features from user stories are implemented
+- [ ] Tasks derived from user stories and architecture
+- [ ] Time estimates for each task
+- [ ] Clear dependencies and order of implementation
+- [ ] Success criteria for each task
+
+**Technical Notes:**
+- Break down into <4 hour chunks
+- Include testing and deployment tasks
+
+**Dependencies:**
+- Story 2.1 (architecture approval)
+
+---
+
+## Epic 3: Autonomous Development
+
+### Story 3.1: Initialize Project Repository
+**As a** developer  
+**I want to** have a properly initialized project repository  
+**So that** I can start with best practices and proper structure
+
+**Priority:** P0
+
+**Acceptance Criteria:**
+- [ ] Git repository created with proper structure
+- [ ] .gitignore configured for chosen tech stack
+- [ ] README with project overview
+- [ ] Package.json/equivalent with dependencies
+- [ ] Basic CI/CD configuration
+
+**Technical Notes:**
+- Use appropriate template or create from scratch
+- Follow industry conventions for chosen stack
+
+**Dependencies:**
+- Architecture approval (Story 2.1)
+
+---
+
+### Story 3.2: Generate Application Code
+**As a** developer  
+**I want to** have functional application code generated  
+**So that** I can have a working MVP without manual coding
+
+**Priority:** P1
+
+**Acceptance Criteria:**
+- [ ] Core features implemented according to P0 user stories
 - [ ] Code follows best practices and conventions
-- [ ] Proper error handling and validation
-- [ ] Environment configuration management
-- [ ] Logging and monitoring hooks
+- [ ] Proper error handling and logging
+- [ ] Security best practices followed
 
 **Technical Notes:**
-- Feature branch per major component
-- Incremental commits for tracking progress
+- Implement incrementally, committing frequently
+- Focus on P0 features first
 
 **Dependencies:**
-- Story 4.1 (Generate System Architecture)
+- Story 3.1 (project initialization)
 
 ---
 
-### Story 5.2: Generate Automated Tests
-**As a** developer
-**I want to** have comprehensive tests generated for the application
-**So that** I can be confident in the code quality
+### Story 3.3: Generate Tests
+**As a** developer  
+**I want to** have comprehensive tests for the generated code  
+**So that** I can ensure quality and catch regressions
 
 **Priority:** P1
 
 **Acceptance Criteria:**
-- [ ] Unit tests for core business logic
-- [ ] Integration tests for API endpoints
-- [ ] >80% code coverage achieved
-- [ ] Tests pass in CI/CD pipeline
-- [ ] Edge cases and error conditions covered
+- [ ] Unit tests for core functionality (>80% coverage)
+- [ ] Integration tests for key user flows
+- [ ] Tests pass on initial run
+- [ ] Test documentation explains what's being tested
 
 **Technical Notes:**
-- Jest/Vitest for JavaScript testing
-- Test data fixtures included
+- Use appropriate testing framework for chosen stack
+- Focus on critical paths and edge cases
 
 **Dependencies:**
-- Story 5.1 (Generate Application Code)
+- Story 3.2 (code generation)
 
 ---
 
-## Epic 6: Deployment & Monitoring
+## Epic 4: Deployment & Quality Assurance
 
-### Story 6.1: Deploy to Staging
-**As a** developer
-**I want to** have the application automatically deployed to staging
+### Story 4.1: Set Up Development Environment
+**As a** developer  
+**I want to** have the application automatically deployed to a development environment  
 **So that** I can review the working application before production
 
-**Priority:** P1
+**Priority:** P0
 
 **Acceptance Criteria:**
-- [ ] Staging environment accessible via URL
-- [ ] All features functional in staging
-- [ ] Database and external services connected
-- [ ] Performance metrics collected
-- [ ] Security scanning passes
+- [ ] Application deploys successfully to Railway dev environment
+- [ ] All features are functional and accessible
+- [ ] Development URL is provided for review
+- [ ] Deployment logs are available for debugging
 
 **Technical Notes:**
-- Railway staging environment
-- Automated deployment on dev branch push
+- Use Railway auto-deploy from dev branch
+- Include environment configuration
 
 **Dependencies:**
-- Story 5.2 (Generate Automated Tests)
+- Story 3.2 (code generation)
 
 ---
 
-### Story 6.2: Production Deployment
-**As a** developer
-**I want to** deploy the approved application to production
-**So that** it's available for real users
+### Story 4.2: Review Application Functionality
+**As a** developer  
+**I want to** review the deployed application  
+**So that** I can approve or request changes before production deployment
+
+**Priority:** P0
+
+**Acceptance Criteria:**
+- [ ] Can access all implemented features
+- [ ] UI/UX meets basic usability standards
+- [ ] Core user flows work correctly
+- [ ] No critical bugs or security issues
+
+**Technical Notes:**
+- Include screenshots/recordings for review
+- Security scan results included
+
+**Dependencies:**
+- Story 4.1 (dev deployment)
+
+---
+
+### Story 4.3: Deploy to Production
+**As a** developer  
+**I want to** deploy the approved application to production  
+**So that** I can have a live application ready for users
 
 **Priority:** P1
 
 **Acceptance Criteria:**
-- [ ] Production deployment only after human approval
-- [ ] Zero-downtime deployment process
-- [ ] Rollback capability in case of issues
-- [ ] Production monitoring and alerting
-- [ ] Performance baseline established
+- [ ] Production deployment successful
+- [ ] All features work in production environment
+- [ ] SSL certificate and domain configured
+- [ ] Production URL provided
 
 **Technical Notes:**
-- Protected main branch deployment
-- Health checks before marking deployment complete
+- Manual deployment trigger for production
+- Smoke tests after deployment
 
 **Dependencies:**
-- Story 6.1 (Deploy to Staging)
+- Story 4.2 (application approval)
 
 ---
 
-## Epic 7: System Meta-Features
+## Epic 5: System Management & Monitoring
 
-### Story 7.1: Track Progress Across Sessions
-**As a** developer
-**I want to** have the system remember progress if interrupted
-**So that** I don't lose work due to timeouts or connectivity issues
+### Story 5.1: Track Progress Across Sessions
+**As a** developer  
+**I want to** see current progress and resume interrupted workflows  
+**So that** I can maintain continuity even if the process is interrupted
 
 **Priority:** P0
 
 **Acceptance Criteria:**
 - [ ] Progress file updated after each major step
-- [ ] System can resume from last completed step
-- [ ] All decisions and context preserved
-- [ ] Human can see current status at any time
-- [ ] Audit trail of all actions taken
+- [ ] Current status clearly displayed
+- [ ] Can resume from last completed step
+- [ ] History of decisions and changes preserved
 
 **Technical Notes:**
 - claude-progress.md file pattern
-- Timestamp tracking for all updates
+- Timestamp and commit tracking
 
 **Dependencies:**
-- Cross-cutting concern for all stories
+- Ongoing throughout all phases
 
 ---
 
-### Story 7.2: Handle Errors and Escalation
-**As a** developer
-**I want to** have the system gracefully handle errors
-**So that** I'm notified when human intervention is needed
+### Story 5.2: Handle Errors and Failures
+**As a** developer  
+**I want to** have graceful error handling when things go wrong  
+**So that** I can recover from failures without losing progress
 
 **Priority:** P1
 
 **Acceptance Criteria:**
-- [ ] Common errors have automated retry logic
-- [ ] Critical errors trigger human notification
-- [ ] Error context preserved for debugging
-- [ ] System provides suggested fixes when possible
-- [ ] Manual override options available
+- [ ] Common errors are caught and handled gracefully
+- [ ] Human escalation triggered for complex failures
+- [ ] Retry logic for transient failures
+- [ ] Clear error messages and suggested actions
 
 **Technical Notes:**
-- Error classification and routing
-- Integration with notification system
+- Timeout handling for long-running operations
+- Rollback mechanisms where appropriate
 
 **Dependencies:**
-- Cross-cutting concern for all stories
+- All implementation stories
+
+---
+
+### Story 5.3: Generate Project Retrospective
+**As a** developer  
+**I want to** receive a summary of what was built and lessons learned  
+**So that** I can understand the process and improve future workflows
+
+**Priority:** P1
+
+**Acceptance Criteria:**
+- [ ] Summary of all phases and decisions
+- [ ] Time tracking and performance metrics
+- [ ] Identified improvements for future workflows
+- [ ] Documentation of any manual interventions required
+
+**Technical Notes:**
+- Generate from progress file and git history
+- Include deployment metrics
+
+**Dependencies:**
+- Story 4.3 (production deployment)
+
+---
+
+## Implementation Priority Order
+
+### Phase 1 (P0 - Must Have)
+1. Story 1.1 → 1.2 → 1.3 → 1.4 (Project initiation flow)
+2. Story 5.1 (Progress tracking - foundational)
+3. Story 3.1 (Project initialization)
+4. Story 4.1 → 4.2 (Development and review)
+
+### Phase 2 (P1 - Should Have)  
+1. Story 2.1 → 2.2 (Architecture and planning)
+2. Story 3.2 → 3.3 (Code and test generation)
+3. Story 4.3 (Production deployment)
+4. Story 5.2 (Error handling)
+
+### Phase 3 (P2 - Could Have)
+1. Story 5.3 (Retrospective)
+2. Additional features based on initial feedback
+
+## Estimated Timeline
+
+- **Phase 1 Stories:** 16-20 hours
+- **Phase 2 Stories:** 24-32 hours  
+- **Phase 3 Stories:** 8-12 hours
+- **Total:** 6-8 weeks for complete system

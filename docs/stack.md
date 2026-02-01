@@ -1,194 +1,247 @@
-# Technical Stack Recommendation: Autonomous Software Development Workflow
+# Technical Stack Recommendation: AutoDev - Autonomous Software Development Workflow
 
 ## 1. Recommended Stack
 
 | Layer | Technology | Version | Justification |
 |-------|------------|---------|---------------|
-| Frontend | React/Next.js | 14+ | Familiar tech, great DX, serverless-friendly |
-| Backend | Node.js + Next.js API Routes | 18+ LTS | Single-language stack, easy deployment |
-| Database | PostgreSQL (Railway) | 15+ | Proven reliability, complex queries, full-text search |
-| Hosting | Railway | Latest | Already configured, simple deployments |
-| CI/CD | GitHub Actions | Latest | Integrated with repo, free tier sufficient |
-| AI Integration | Anthropic Claude | Latest | Best reasoning for code generation |
-| Authentication | GitHub OAuth | Latest | Simple for developer tools |
+| Orchestration | Claude Code / Clawdbot | Latest | AI-first workflow, existing setup with Railway |
+| Frontend | Next.js 14+ | 14.x | React framework with excellent DX, SSR, API routes |
+| Backend | Next.js API Routes | 14.x | Unified fullstack framework, serverless-friendly |
+| Database | PostgreSQL (Railway) | Latest | Reliable, feature-rich, easy Railway integration |
+| ORM/Database | Prisma | Latest | Type-safe, excellent DX, migrations, Railway compatible |
+| Hosting | Railway | Latest | Existing infrastructure, excellent Git integration |
+| Authentication | NextAuth.js | Latest | Easy integration with Next.js, multiple providers |
+| Styling | Tailwind CSS | Latest | Utility-first, rapid development, excellent DX |
+| UI Components | shadcn/ui | Latest | High-quality components, customizable, Tailwind-based |
+| Type Safety | TypeScript | Latest | Enhanced developer experience, fewer runtime errors |
+| Testing | Jest + Testing Library | Latest | Industry standard for React testing |
+| Git Hosting | GitHub | Latest | Version control, CI/CD integration, existing setup |
+| CI/CD | GitHub Actions | Latest | Integrated with GitHub, Railway deployment |
 
 ## 2. Architecture Pattern
-**Full-Stack Next.js Application (Monolith)**
+**Monolith (Modular)**
 
-**Justification:** 
-- Single deployment unit simplifies operations
-- Next.js API routes eliminate need for separate backend
-- Rapid development and iteration
-- Easy to break apart later if needed
-- Matches existing Railway setup
+**Justification:** For an AI workflow orchestration tool, a monolith provides:
+- Simpler deployment and debugging
+- Easier state management across workflow phases
+- Lower complexity for the initial version
+- Natural fit for Next.js fullstack capabilities
+- Easier to iterate and modify during development
+
+We'll structure it as a modular monolith with clear separation of concerns to allow future extraction of services if needed.
 
 ## 3. Key Libraries/Dependencies
 
 | Purpose | Library | Why |
 |---------|---------|-----|
-| Database ORM | Prisma | Type-safe, great migrations, Railway integration |
-| UI Components | Tailwind CSS + Shadcn/ui | Fast development, consistent design |
-| Authentication | NextAuth.js | Easy GitHub OAuth, session management |
-| Forms | React Hook Form + Zod | Type-safe validation, great UX |
-| State Management | Zustand | Simple, lightweight, TypeScript-first |
-| Git Operations | Simple-git (Node) | Programmatic git operations |
-| GitHub API | Octokit | Official GitHub SDK |
-| SSH/Command Execution | Node SSH2 | Remote command execution |
-| File Generation | Handlebars | Template-based code generation |
-| Testing | Jest + Testing Library | Standard React testing stack |
-| Code Quality | ESLint + Prettier | Automated formatting and linting |
+| State Management | Zustand | Lightweight, TypeScript-friendly, less boilerplate than Redux |
+| Form Handling | React Hook Form | Performance, minimal re-renders, excellent validation |
+| Validation | Zod | Runtime type validation, excellent TypeScript integration |
+| Date Handling | date-fns | Modular, tree-shakeable, functional approach |
+| HTTP Client | Fetch API + SWR | Native fetch with SWR for caching and revalidation |
+| File Processing | multer + sharp | File uploads and image processing if needed |
+| Git Operations | simple-git | Node.js Git interface for repository operations |
+| Markdown | react-markdown | Rendering progress files and documentation |
+| Diagrams | Mermaid | Architecture diagrams, workflow visualization |
+| Code Highlighting | Prism.js | Syntax highlighting for generated code |
+| Notifications | sonner | Toast notifications for user feedback |
+| Icons | Lucide React | Consistent icon set, tree-shakeable |
 
 ## 4. Alternatives Considered
 
 | Layer | Alternative | Why Not Chosen |
 |-------|-------------|----------------|
-| Frontend | SvelteKit | Less familiar, smaller ecosystem |
-| Frontend | Vue/Nuxt | Less familiar, prefer React ecosystem |
-| Backend | Express.js | Additional deployment complexity |
-| Backend | Python/FastAPI | Different language, more setup |
-| Database | SQLite | Doesn't scale, limited features |
-| Database | MongoDB | Prefer SQL for structured data |
-| Hosting | Vercel | Railway already configured |
-| Hosting | AWS/Docker | Over-engineering for MVP |
+| Frontend | Pure React SPA | Next.js provides better structure and SSR for better UX |
+| Backend | Express.js | Next.js API routes simpler for this use case, one less server |
+| Database | SQLite | PostgreSQL better for production, Railway makes it easy |
+| Hosting | Vercel | Railway already set up, better for fullstack with database |
+| Auth | Auth0 | NextAuth.js more integrated, lower cost for MVP |
+| Styling | CSS-in-JS (Emotion) | Tailwind faster for prototyping, better performance |
+| UI Framework | Material-UI | shadcn/ui more customizable, smaller bundle size |
+| Testing | Cypress | Jest + Testing Library sufficient for unit/integration tests |
+| State | Redux Toolkit | Zustand simpler for this project size |
 
 ## 5. Template/Starter to Use
-**Custom Template Based on T3 Stack**
+**Custom T3 Stack-inspired setup**
 
-**Base:** https://create.t3.gg/
-**Modifications Needed:**
-- Add Prisma with PostgreSQL
-- Configure NextAuth with GitHub provider
-- Add file system utilities for code generation
-- Integrate Anthropic SDK
-- Add SSH client capabilities
+**Why:** 
+- T3 Stack provides excellent TypeScript + Next.js + Prisma foundation
+- We'll customize it for our specific AI workflow needs
+- Includes essential tools without bloat
+- Strong opinions on best practices
+- Active community and excellent documentation
 
-**Why:** T3 Stack provides excellent TypeScript setup with Next.js, Prisma, and NextAuth already configured. It's a proven foundation for full-stack apps.
+We'll create our own template based on T3 principles:
+```bash
+npx create-next-app@latest autodev-workflow --typescript --tailwind --eslint --app --src-dir --import-alias "@/*"
+```
+
+Then add our specific dependencies and configuration.
 
 ## 6. Development Environment
 
 | Tool | Purpose |
 |------|---------|
-| TypeScript | Type safety and better DX |
-| ESLint + Prettier | Code quality and formatting |
-| Husky | Git hooks for quality gates |
-| pnpm | Fast, efficient package manager |
-| Prisma Studio | Database GUI for development |
-| GitHub CLI | Repository management |
-| SSH Keys | Secure remote access |
+| VS Code | Primary IDE with AI assistant extensions |
+| GitHub Copilot | AI-assisted coding (complements Claude) |
+| Prettier | Code formatting consistency |
+| ESLint | Code quality and standards enforcement |
+| Husky | Git hooks for pre-commit checks |
+| lint-staged | Run linting on staged files only |
+| Docker | Local development environment consistency |
+| Railway CLI | Direct deployment and database access |
+| Prisma Studio | Database administration interface |
+| Postman/Bruno | API testing and documentation |
 
 ## 7. Estimated Complexity
 
 - **Overall:** Medium
-- **Frontend:** Low-Medium (Standard Next.js with forms and auth)
-- **Backend:** Medium (Git/GitHub integration, SSH operations, AI orchestration)
-- **Infrastructure:** Low (Railway handles deployment)
+- **Frontend:** Medium (workflow UI, real-time updates, state management)
+- **Backend:** Medium (AI integration, Git operations, file processing)
+- **Infrastructure:** Low (Railway handles most complexity)
 
-## 8. Deployment Architecture
+### Complexity Breakdown:
 
+**Low Complexity:**
+- Basic Next.js setup and configuration
+- Database schema (relatively simple for MVP)
+- UI components with shadcn/ui
+- Authentication with NextAuth.js
+- Deployment to Railway
+
+**Medium Complexity:**
+- AI workflow orchestration logic
+- Progress tracking and state persistence
+- Git repository operations
+- File generation and manipulation
+- Real-time progress updates
+- Error handling and recovery
+
+**High Complexity (Future):**
+- Multi-language/framework support
+- Complex workflow customization
+- Distributed architecture
+- Advanced monitoring and analytics
+
+## 8. Specific Architectural Decisions
+
+### 8.1 Directory Structure
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                        Railway Deployment                       │
-├─────────────────────────────────────────────────────────────────┤
-│  Dev Environment (auto-deploy from 'dev' branch)               │
-│  ├── Next.js Application (Frontend + API)                      │
-│  ├── PostgreSQL Database (Railway service)                     │
-│  └── Environment Variables (GitHub tokens, SSH keys)           │
-├─────────────────────────────────────────────────────────────────┤
-│  Prod Environment (manual deploy from 'main' branch)           │
-│  ├── Next.js Application (Frontend + API)                      │
-│  ├── PostgreSQL Database (Railway service)                     │
-│  └── Environment Variables (production secrets)                │
-└─────────────────────────────────────────────────────────────────┘
-```
-
-## 9. External Integrations
-
-| Service | Purpose | Authentication |
-|---------|---------|----------------|
-| GitHub | Repository management, OAuth | GitHub App or Personal Access Token |
-| Anthropic | AI code generation | API Key |
-| Dedicated Dev Machine | Code execution environment | SSH Key |
-| Railway | Database and hosting | Integrated |
-
-## 10. Security Considerations
-
-- **API Keys:** Store in Railway environment variables
-- **SSH Keys:** Securely generated and stored, scoped access
-- **Database:** Railway's built-in security + row-level security if needed
-- **Authentication:** GitHub OAuth with proper scopes
-- **CORS:** Restrict API access to known domains
-- **Input Validation:** Strict validation on all user inputs
-- **Code Injection:** Sandboxed execution on dedicated machine
-
-## 11. Development Phases Alignment
-
-| Phase | Technical Requirements | Stack Support |
-|-------|----------------------|---------------|
-| Phase 1 (Planning) | Document generation, GitHub integration | ✅ Handlebars templates, Octokit |
-| Phase 2 (Architecture) | Diagram generation, file templates | ✅ Mermaid.js, file system APIs |
-| Phase 3 (Development) | SSH execution, git operations | ✅ SSH2, simple-git |
-| Phase 4 (Deployment) | CI/CD triggers, monitoring | ✅ GitHub Actions, Railway webhooks |
-| Phase 5 (Monitoring) | Error tracking, metrics | ✅ Railway logs, custom metrics |
-
-## 12. Scalability Considerations
-
-**Current Scope (MVP):**
-- Single developer projects
-- Limited concurrent workflows
-- Simple project types
-
-**Future Scaling Options:**
-- Queue system for multiple projects (Redis/Bull)
-- Microservices extraction if needed
-- Multi-tenancy with workspace isolation
-- Horizontal scaling on Railway
-
-## 13. Development Timeline by Stack Layer
-
-| Layer | Estimated Time | Risk Level |
-|-------|---------------|------------|
-| Project Setup | 2 hours | Low |
-| Database Schema | 3 hours | Low |
-| Authentication | 4 hours | Low |
-| Frontend Shell | 6 hours | Low |
-| AI Integration | 8 hours | Medium |
-| Git/GitHub Integration | 6 hours | Medium |
-| SSH Operations | 4 hours | Medium |
-| Workflow Orchestration | 12 hours | High |
-| Testing | 8 hours | Low |
-| Deployment | 3 hours | Low |
-| **Total** | **56 hours** | **Medium** |
-
-**Critical Path:** Workflow orchestration and AI integration are the highest risk items requiring the most careful implementation.
-
-## 14. Local Development Setup
-
-```bash
-# Prerequisites
-node --version  # 18+ LTS
-pnpm --version  # Latest
-git --version   # 2.x+
-
-# Project setup
-git clone [repo]
-cd autonomous-workflow
-pnpm install
-cp .env.example .env.local
-
-# Database setup
-pnpm db:migrate
-pnpm db:seed
-
-# Development
-pnpm dev  # Start Next.js dev server
-pnpm db:studio  # Prisma Studio for database
+src/
+├── app/                 # Next.js 14+ app router
+│   ├── (auth)/         # Auth routes
+│   ├── (dashboard)/    # Main app routes  
+│   ├── api/            # API routes
+│   └── globals.css     # Global styles
+├── components/         # React components
+│   ├── ui/            # shadcn/ui components
+│   └── workflow/      # Workflow-specific components
+├── lib/               # Utility functions
+│   ├── ai/           # AI integration
+│   ├── git/          # Git operations
+│   └── workflow/     # Workflow engine
+├── stores/           # Zustand stores
+├── types/            # TypeScript type definitions
+└── utils/            # Helper functions
 ```
 
-**Required Environment Variables:**
-- `DATABASE_URL` - PostgreSQL connection string
-- `NEXTAUTH_SECRET` - Random secret for auth
-- `GITHUB_CLIENT_ID` - GitHub OAuth app ID
-- `GITHUB_CLIENT_SECRET` - GitHub OAuth secret
-- `ANTHROPIC_API_KEY` - Claude API access
-- `SSH_PRIVATE_KEY` - Key for dedicated machine access
-- `DEV_MACHINE_HOST` - SSH host for development machine
+### 8.2 Database Schema (Initial)
+```sql
+-- Projects table
+CREATE TABLE projects (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name VARCHAR(255) NOT NULL,
+  description TEXT,
+  status VARCHAR(50) NOT NULL,
+  github_url VARCHAR(255),
+  deploy_url VARCHAR(255),
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Workflow steps table
+CREATE TABLE workflow_steps (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  project_id UUID REFERENCES projects(id),
+  phase VARCHAR(50) NOT NULL,
+  step VARCHAR(50) NOT NULL,
+  status VARCHAR(50) NOT NULL,
+  input_data JSONB,
+  output_data JSONB,
+  started_at TIMESTAMP,
+  completed_at TIMESTAMP
+);
+
+-- User decisions table (for approval gates)
+CREATE TABLE user_decisions (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  project_id UUID REFERENCES projects(id),
+  step_id UUID REFERENCES workflow_steps(id),
+  decision VARCHAR(50) NOT NULL, -- approve, reject, modify
+  reasoning TEXT,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+```
+
+### 8.3 API Route Structure
+```
+/api/
+├── projects/
+│   ├── POST /create      # Start new project
+│   ├── GET /[id]         # Get project details
+│   └── PATCH /[id]       # Update project
+├── workflow/
+│   ├── POST /start       # Start workflow phase
+│   ├── GET /status       # Get current status
+│   └── POST /decision    # Submit approval decision
+├── ai/
+│   ├── POST /generate    # Generate documents
+│   └── POST /review      # Review generated content
+└── github/
+    ├── POST /setup       # Set up repository
+    └── POST /deploy      # Deploy to environments
+```
+
+## 9. Development Phases
+
+### Phase 1: Foundation (Week 1-2)
+- Next.js project setup with TypeScript and Tailwind
+- Database setup with Prisma
+- Basic authentication with NextAuth.js
+- Core UI components and layout
+- Progress tracking system
+
+### Phase 2: Workflow Engine (Week 3-4)
+- AI integration for content generation
+- Git operations and repository management
+- Workflow orchestration logic
+- Approval gate implementation
+- Error handling and recovery
+
+### Phase 3: Polish & Deploy (Week 5-6)
+- UI/UX improvements
+- Testing implementation
+- Performance optimization
+- Production deployment
+- Documentation and onboarding
+
+## 10. Risk Mitigation
+
+| Risk | Mitigation Strategy |
+|------|-------------------|
+| AI API rate limits | Implement queuing and retry logic, usage monitoring |
+| GitHub API limits | Use GitHub App authentication, implement caching |
+| Railway service limits | Monitor usage, implement graceful degradation |
+| Complex state management | Use Zustand with clear state structure, add logging |
+| File generation failures | Implement atomic operations, rollback mechanisms |
+| Workflow interruptions | Persist state at each step, allow resume from checkpoint |
+
+## 11. Monitoring and Observability
+
+- **Error Tracking:** Integrate Sentry for error monitoring
+- **Performance:** Next.js built-in analytics + Railway metrics
+- **Logs:** Structured logging with pino.js
+- **Metrics:** Custom metrics for workflow completion rates
+- **Alerts:** Railway alerts for deployment and performance issues
+
+This tech stack provides a solid foundation for rapid development while maintaining the flexibility to evolve as the product grows.
